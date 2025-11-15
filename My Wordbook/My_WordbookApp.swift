@@ -12,7 +12,7 @@ import SwiftData
 struct My_WordbookApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            MWEntry.self, MWEntryDefinition.self, MWDefinitionSense.self, MWSenseExample.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -25,7 +25,7 @@ struct My_WordbookApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MWEntriesView()
         }
         .modelContainer(sharedModelContainer)
     }
