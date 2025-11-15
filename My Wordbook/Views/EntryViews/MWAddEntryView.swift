@@ -13,6 +13,8 @@ struct MWAddEntryView: View {
     @Environment(\.dismiss) private var dismiss
     
     @State var expression: String = ""
+    @State var definitions: [MWEntryDefinition] = []
+    @State var showAddDefs: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -22,10 +24,10 @@ struct MWAddEntryView: View {
                 }
                 
                 Section("Definitions") {
-                    
+                    MWDefSectionView(definitions: $definitions)
                 }
             }
-            .navigationTitle(Text("Add A Word/Phrase"))
+            .navigationTitle(Text("Add Word/Phrase"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -47,6 +49,48 @@ struct MWAddEntryView: View {
         withAnimation {
             let newItem = MWEntry(word: "Word")
             modelContext.insert(newItem)
+        }
+    }
+}
+
+private struct MWDefSectionView: View {
+    @Binding var definitions: [MWEntryDefinition]
+    
+    @State private var showAddDef: Bool = false
+    @State private var showDefs: Bool = false
+    
+    var body: some View {
+        VStack {
+            HStack {
+                if definitions.isEmpty {
+                    Text("No definitions yet. Add one now?")
+                        .foregroundStyle(.secondary)
+                } else {
+                    Text(MWShared.singularOrPlural(number: definitions.count, singular: "definition", plural: "definitions"))
+                        .font(.headline)
+                        .bold()
+                        .foregroundStyle(Color(.label))
+                        .onTapGesture {
+                            showDefs.toggle()
+                        }
+                }
+                Spacer()
+                Button {
+                    showAddDef.toggle()
+                } label: {
+                    Image(systemName: "plus.circle.fill")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(Color(.label))
+                }
+            }
+            
+            if showDefs {
+                MWDefinitionsView(definitions: $definitions)
+            }
+        }
+        .fullScreenCover(isPresented: $showAddDef) {
+            MWAddDefinitionView()
         }
     }
 }

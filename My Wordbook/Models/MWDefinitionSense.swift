@@ -11,14 +11,16 @@ import SwiftData
 @Model
 final class MWDefinitionSense: Identifiable {
     var id: UUID = UUID()
+    var sense: String
     var translation: String?
-    var style: MWSenseStyle?
+    var style: MWSenseStyle
     var imageURL: URL?
     
     @Relationship(deleteRule: .cascade) var examples: [MWSenseExample]?
     @Relationship(deleteRule: .nullify, inverse: \MWEntryDefinition.definitionSenses) var definition: MWEntryDefinition?
     
-    init(translation: String? = nil, style: MWSenseStyle? = nil, imageURL: URL? = nil) {
+    init(sense: String, translation: String? = nil, style: MWSenseStyle = .neutral, imageURL: URL? = nil) {
+        self.sense = sense
         self.translation = translation
         self.style = style
         self.imageURL = imageURL
@@ -26,5 +28,5 @@ final class MWDefinitionSense: Identifiable {
 }
 
 enum MWSenseStyle: String, Codable, CaseIterable {
-    case formal, informal
+    case neutral, formal, informal
 }
