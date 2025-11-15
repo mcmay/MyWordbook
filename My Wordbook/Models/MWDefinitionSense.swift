@@ -17,6 +17,7 @@ final class MWDefinitionSense: Identifiable {
     var imageURL: URL?
     
     @Relationship(deleteRule: .cascade) var examples: [MWSenseExample]?
+    @Relationship(deleteRule: .cascade) var customExamples: [MWCustomExample]?
     @Relationship(deleteRule: .nullify, inverse: \MWEntryDefinition.definitionSenses) var definition: MWEntryDefinition?
     
     init(sense: String, translation: String? = nil, style: MWSenseStyle = .neutral, imageURL: URL? = nil) {

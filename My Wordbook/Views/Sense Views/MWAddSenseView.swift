@@ -21,6 +21,7 @@ struct MWAddSenseView: View {
             Form {
                 Section("Meaning") {
                     TextEditor(text: $sense)
+                        .frame(minHeight: 100)
                 }
                 
                 Section("Style") {
