@@ -29,5 +29,5 @@ final class MWDefinitionSense: Identifiable {
 }
 
 enum MWSenseStyle: String, Codable, CaseIterable {
-    case neutral, formal, informal
+    case neutral, formal, informal, derogatory, slang, archaic, offensive, idiomatic
 }

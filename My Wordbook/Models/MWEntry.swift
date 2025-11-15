@@ -13,6 +13,7 @@ final class MWEntry: Identifiable {
     var id: UUID = UUID()
     var createdAt: Date
     var updatedAt: Date?
+    var lastViewAt: Date?
     var word: String
     var altSpelling: String?
     var priority: MWEntryPriority

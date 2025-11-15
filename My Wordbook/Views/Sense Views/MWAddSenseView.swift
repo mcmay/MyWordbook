@@ -30,7 +30,8 @@ struct MWAddSenseView: View {
                             Text(style.rawValue).tag(style)
                         }
                     }
-                    .pickerStyle(SegmentedPickerStyle())
+                    .pickerStyle(WheelPickerStyle())
+                    .frame(height: 200)
                 }
                 
                 Section("Examples") {
